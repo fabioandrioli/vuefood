@@ -15,10 +15,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import HeaderComponent from './_partials/header.vue'
 import FooterComponent from './_partials/footer.vue'
 export default {
-  data () {
-    return {
-    }
-  },
   components:{
       HeaderComponent,
       FooterComponent,

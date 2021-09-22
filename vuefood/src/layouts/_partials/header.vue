@@ -13,6 +13,16 @@
                   <i class="fas fa-shopping-cart"></i>(2)
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link  class="nav-link" :to="{name:'login'}">
+                  <i class="fas fa-lock"></i> Entrar
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link  class="nav-link" :to="{name:'register'}">
+                  <i class="fas fa-card-user"></i> Registrar-se
+              </router-link>
+            </li>
           </ul>
         </div>
       </div>
