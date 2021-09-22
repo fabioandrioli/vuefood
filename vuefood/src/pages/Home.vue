@@ -82,6 +82,14 @@
     </div>
 </template>
 <script>
+export default {
+    mounted(){
+  
+        this.$store.dispatch('getCompanies') // o parametro que ele espera commit é defautl, então não repcisa passar/usando a action
+        //this.$store.dispatch(getCompanies,'sda') com parametro
+    }
+}
+</script>
 
 
 
