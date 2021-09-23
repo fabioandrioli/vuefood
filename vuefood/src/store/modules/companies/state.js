@@ -2,6 +2,9 @@
 const state = {
     items:{
         data:[],
+    },
+    companySelected:{
+        name:''
     }
 }
 
