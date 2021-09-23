@@ -85,7 +85,12 @@
 export default {
     mounted(){
   
-        this.$store.dispatch('getCompanies') // o parametro que ele espera commit é defautl, então não repcisa passar/usando a action
+        // o parametro que ele espera commit é defautl, então não repcisa passar/usando a action
+        this.$store.dispatch('getCompanies')
+                    .then(response => {
+                        console.log(response)
+                        commit('SET_COMPANY',response.data)
+                    })
         //this.$store.dispatch(getCompanies,'sda') com parametro
     }
 }
