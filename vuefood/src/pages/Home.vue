@@ -40,20 +40,28 @@
 </template>
 <script>
 
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 export default {
     mounted(){
 
         // o parametro que ele espera commit é defautl, então não repcisa passar/usando a action
         // this.$store.dispatch('getCompanies')
         //this.$store.dispatch(getCompanies,'sda') com parametro
-        this.getCompanies() //nova forma de fazer, depois de mapear com o mapActions
+        //nova forma de fazer, depois de mapear com o mapActions
+        this.getCompanies()
+            .catch(response => {
+               this.$vToastify.error("Falha ao carregar empresas", "erro")
+            })
     },
     computed:{
-        companies () {
-            console.log(this.$store.state.modules_companies.items)
-            return this.$store.state.modules_companies.items
-        }
+        // companies () {
+        //     console.log(this.$store.state.modules_companies.items)
+        //     return this.$store.state.modules_companies.items
+        // }
+        ...mapState({
+            //companies o mesmo nome da propriedade computada companies()
+            companies: state => state.modules_companies.items
+        })
     },
     methods: {
         ...mapActions([
