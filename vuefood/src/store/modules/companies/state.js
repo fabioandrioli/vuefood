@@ -4,7 +4,13 @@ const state = {
         data:[],
     },
     companySelected:{
-        name:''
+        name:'',
+        products:{
+            data:[]
+        }
+    },
+    categoryCompanySelected:{
+        data:[],
     }
 }
 
