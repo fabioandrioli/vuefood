@@ -82,16 +82,20 @@
     </div>
 </template>
 <script>
+
+import {mapActions} from 'vuex'
 export default {
     mounted(){
-  
+
         // o parametro que ele espera commit é defautl, então não repcisa passar/usando a action
-        this.$store.dispatch('getCompanies')
-                    .then(response => {
-                        console.log(response)
-                        commit('SET_COMPANY',response.data)
-                    })
+        // this.$store.dispatch('getCompanies')
         //this.$store.dispatch(getCompanies,'sda') com parametro
+        this.getCompanies() //nova forma de fazer, depois de mapear com o mapActions
+    },
+    methods: {
+        ...mapActions([
+            'getCompanies'
+        ])
     }
 }
 </script>

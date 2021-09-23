@@ -5,5 +5,9 @@ const RESOURCE = 'tenants'
 export default {
     getCompanies({commit}){
         return axios.get(`${API_VERSION}/${RESOURCE}`)
+                    .then(response => {
+                        console.log(response)
+                        commit('SET_COMPANY',response.data)
+                    })
     }
 }   
