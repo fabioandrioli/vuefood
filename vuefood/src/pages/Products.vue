@@ -5,7 +5,19 @@
 
         <h1 class="my-4 title-tenant">{{this.company.name}}</h1>
         <div class="list-group">
-          <a href="#" class="list-group-item" v-for="(category,index) in categories.data" :key="index">
+           <a href="#"
+              :class="['list-group-item',categoryInFilter('')]"
+               @click.prevent="filterByCategory('')"
+           >
+            Todas
+           </a>
+          <a href="#" 
+              
+              v-for="(category,index) in categories.data" 
+              :class="['list-group-item',categoryInFilter(category.identify)]" 
+              @click.prevent="filterByCategory(category.identify)"
+              :key="index"
+          >
             {{category.name}}
           </a>
         </div>
@@ -16,6 +28,10 @@
       <div class="col-lg-9">
 
         <div class="row my-4">
+
+          <div v-if="company.products.data.length === 0">
+              Nenhum produto encontrado
+          </div>
 
           <div class="col-lg-4 col-md-6 mb-4" v-for="(product,index) in company.products.data" :key="index">
             <div class="card h-100">
@@ -79,7 +95,7 @@ import {mapState, mapActions} from 'vuex'
       return{
         filters:{
           category:''
-        }
+        },
       }
     },
 
@@ -90,17 +106,33 @@ import {mapState, mapActions} from 'vuex'
 
       ]),
 
+     
+
       loadProducts(){
         const params = {
           token_company: this.company.uuid,
         }
-        console.log("companies")
-        console.log(this.company)
+
+        if(this.filters.category){
+          params.categories = [
+            this.filters.category
+          ]
+        }
+
         this.getProductsByCompany(params)
             .catch(response => {
                 this.$vToastify.error("Falha ao carregar os produtos", "erro")
               })
-        }
+        },
+
+        filterByCategory(identify){
+          this.filters.category = identify
+          this.loadProducts()
+        },
+
+        categoryInFilter(identify){
+          return identify === this.filters.category ? 'active' : ''
+        },
     }
   }
 

@@ -9,7 +9,6 @@ export default {
         commit('SET_TEXT_PRELOADER','Carregando Empresas...')
         return axios.get(`${API_VERSION}/${RESOURCE}`)
                     .then(response => {
-                        console.log(response)
                         commit('SET_COMPANIES',response.data)
                     })
                     .finally(() => {
@@ -21,10 +20,9 @@ export default {
         // const params = {token_company: token_company}
         commit('SET_PRELOADER',true)
         commit('SET_TEXT_PRELOADER','Carregando as Categorias...')
+    
         return axios.get(`${API_VERSION}/categories`,{params: {token_company}})
                     .then(response => {
-                        console.log("action getCategoryByCompany")
-                        console.log(response.data)
                         commit('SET_CATEGORIES_COMPANY',response.data)
                     })
                     .finally(() => {
@@ -37,6 +35,7 @@ export default {
         // const params = {token_company: token_company}
         commit('SET_PRELOADER',true)
         commit('SET_TEXT_PRELOADER','Carregando os Produtos...')
+        commit('SET_PRODUCTS_COMPANY',{data:[]})
         return axios.get(`${API_VERSION}/products`,{params})
                     .then(response => {
                         console.log("action getCategoryByCompany")

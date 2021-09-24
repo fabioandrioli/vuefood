@@ -7,6 +7,7 @@ const state = {
         name:'',
         products:{
             data:[]
+            
         }
     },
     categoryCompanySelected:{

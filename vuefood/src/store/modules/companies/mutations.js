@@ -4,17 +4,15 @@ export default {
     },
 
     SET_COMPANY_SELECTED(state,company){
-        console.log(company)
-        state.companySelected = company
+        state.companySelected = Object.assign(state.companySelected,company)
     },
 
     SET_CATEGORIES_COMPANY(state,categories){
-        console.log(categories)
         state.categoryCompanySelected = categories
     },
 
     SET_PRODUCTS_COMPANY(state,products){
-        console.log(products)
         state.companySelected.products = products
+        console.log(products.data)
     }
 }
