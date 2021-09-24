@@ -14,14 +14,18 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link  class="nav-link" :to="{name:'login'}">
+              <a class="nav-link" v-if="me.name">Olá, {{me.name}}</a>
+              <router-link v-else  class="nav-link" :to="{name:'login'}">
                   <i class="fas fa-lock"></i> Entrar
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link  class="nav-link" :to="{name:'register'}">
+              <router-link  v-if="!me.name"   class="nav-link" :to="{name:'register'}">
                   <i class="fas fa-card-user"></i> Registrar-se
               </router-link>
+               <a v-else href="#" @click.prevent="logout" class="nav-link" :to="{name:'register'}">
+                Logout
+              </a>
             </li>
           </ul>
         </div>
@@ -31,12 +35,18 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 export default {
   computed:{
     ...mapState({
-        productsCart: state => state.modules_cart.products
+        productsCart: state => state.modules_cart.products,
+        me: state => state.modules_auth.me
     })
+  },
+  methods:{
+    ...mapActions([
+      'logout'
+    ]),
   }
 }
 </script>
