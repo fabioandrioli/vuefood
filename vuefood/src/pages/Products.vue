@@ -34,7 +34,7 @@
           </div>
 
           <div class="col-lg-4 col-md-6 mb-4" v-for="(product,index) in company.products.data" :key="index">
-            <div class="card h-100">
+            <div :class="['card', 'h-100',{'disabled':productInCart(product)}]">
               <a href="#"><img class="card-img-top" :src="product.image" :alt="product.title"></a>
               <div class="card-body">
                 <h4 class="card-title">
@@ -44,7 +44,9 @@
                 <p class="card-text">{{product.description}}</p>
               </div>
               <div class="card-footer card-footer-custom">
-                <a href="carrinho.html">Adicionar no Carrinho <i class="fas fa-cart-plus"></i></a>
+                <a href="#" @click.prevent="addProductCart(product)">
+                  Adicionar no Carrinho <i class="fas fa-cart-plus"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -61,7 +63,7 @@
 
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapActions, mapMutations} from 'vuex'
   export default {
 
     
@@ -88,6 +90,7 @@ import {mapState, mapActions} from 'vuex'
       ...mapState({
         company: state => state.modules_companies.companySelected,
         categories: state => state.modules_companies.categoryCompanySelected,
+        productsCart: state => state.modules_cart.products,
       })
     },
 
@@ -106,7 +109,9 @@ import {mapState, mapActions} from 'vuex'
 
       ]),
 
-     
+     ...mapMutations({
+       addProductCart:'ADD_PRODUCT_CART',
+     }),
 
       loadProducts(){
         const params = {
@@ -132,6 +137,15 @@ import {mapState, mapActions} from 'vuex'
 
         categoryInFilter(identify){
           return identify === this.filters.category ? 'active' : ''
+        },
+
+        productInCart(product){
+          let inCart = false
+          this.productsCart.map((prodCart,index) => {
+            if(prodCart.identify === product.identify)
+              inCart = true
+          })
+          return inCart
         },
     }
   }
